@@ -52,7 +52,7 @@ require_once('functions.php');
 /* Get node name */
 $host_info = posix_uname();
 $nodename = $host_info['nodename'];
-if (eregi('.', $nodename)) {
+if (strpos($nodename, '.') !== false) {
 	$e_nodename = explode(".", $nodename);
 	$hostname = $e_nodename[0];
 } else {
@@ -718,7 +718,7 @@ gen_blocks();
 $host_info = posix_uname();
 $nodename = $host_info['nodename'];
 
-if (eregi('.', $nodename)) {
+if (strpos($nodename, '.') !== false) {
 	$e_nodename = explode(".", $nodename);
 	$settings['hostname'] = $e_nodename[0];
 } else {

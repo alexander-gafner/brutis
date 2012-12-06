@@ -114,13 +114,13 @@ function parse_mc_servers($servers, $arg) {
 
 	if (isset($servers[$arg])) {
 		$count = 0;
-		if (ereg(",", $servers[$arg])) {
+		if (strpos($servers[$arg], ',') !== false) {
 			$split_options = split(',', $servers[$arg]);
 			foreach ($split_options as $current) {
 				$settings['memcache'][$count]['server'] = host_to_addr('localhost');
 				$settings['memcache'][$count]['tcp_port'] = '11211';
 				$settings['memcache'][$count]['udp_port'] = '0';
-				if (ereg(":", $current)) {
+				if (strpos($current, ':') !== false) {
 					$curr_explode = explode(':', $current);
 					$settings['memcache'][$count]['server'] = host_to_addr(strtolower(trim($curr_explode[0])));
 					if (isset($curr_explode[1])) {
@@ -140,7 +140,7 @@ function parse_mc_servers($servers, $arg) {
 			$settings['memcache'][0]['server'] = host_to_addr('localhost');
 			$settings['memcache'][0]['tcp_port'] = '11211';
 			$settings['memcache'][0]['udp_port'] = '0';
-			if (ereg(":", $servers[$arg])) {
+			if (strpos($servers[$arg], ':') !== false) {
 				$curr_explode = explode(':', $servers[$arg]);
 				$settings['memcache'][$count]['server'] = host_to_addr(strtolower(trim($curr_explode[0])));
 				if (isset($curr_explode[1])) {
@@ -354,7 +354,7 @@ function parse_prefix($prefix, $arg) {
 	$settings['prefix'] = 'brutis-';
 	if (isset($prefix[$arg])) {
 		$settings['prefix'] = trim($prefix[$arg]);
-		if (eregi(" ",$settings['prefix'])) {
+		if (strpos($settings['prefix'], ' ') !== false) {
 			print("Error, can not have spaces in key prefix!\n");
 		}
 	}
